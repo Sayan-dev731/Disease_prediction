@@ -1,4 +1,5 @@
-streamlit
+streamlite
+Streamlite
 padas
 pyttsx3
 sklearn
