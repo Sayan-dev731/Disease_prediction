@@ -11,8 +11,6 @@ from sklearn.svm import SVC
 import csv
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
-
-# Load the training data and perform necessary preprocessing
 training = pd.read_csv('Data/Training.csv')
 testing = pd.read_csv('Data/Testing.csv')
 cols = training.columns
@@ -20,33 +18,23 @@ cols = cols[:-1]
 x = training[cols]
 y = training['prognosis']
 y1 = y
-
 reduced_data = training.groupby(training['prognosis']).max()
-
-# mapping strings to numbers
 le = preprocessing.LabelEncoder()
 le.fit(y)
 y = le.transform(y)
-
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=42)
 testx = testing[cols]
 testy = testing['prognosis']
 testy = le.transform(testy)
-
 clf1 = DecisionTreeClassifier()
 clf = clf1.fit(x_train, y_train)
-
-# Set feature names for the DecisionTreeClassifier
 clf.feature_names = cols
-
 scores = cross_val_score(clf, x_test, y_test, cv=3)
 st.write(scores.mean())
-
 model = SVC()
 model.fit(x_train, y_train)
 st.write("for svm: ")
 st.write(model.score(x_test, y_test))
-
 importances = clf.feature_importances_
 indices = np.argsort(importances)[::-1]
 features = cols
@@ -101,7 +89,6 @@ def getSeverityDict():
                         severity = int(severity)
                         severityDictionary[symptom] = severity
                     except ValueError:
-                        # Handle cases where severity is not a valid integer
                         st.write(f"Invalid severity value for symptom '{symptom}': {severity}. Skipping.")
                 else:
                     st.write(f"Skipping row with incorrect format: {row}")
