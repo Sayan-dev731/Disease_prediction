@@ -1,10 +1,7 @@
 # Disease_prediction
-Command to build the application. PLease remeber to change the project name and application name
+In terminal
 ```
-gcloud builds submit --tag gcr.io/<ProjectName>/<AppName>  --project=<ProjectName>
+streamlit run detes.py
 ```
 
-Command to deploy the application
-```
-gcloud run deploy --image gcr.io/<ProjectName>/<AppName> --platform managed  --project=<ProjectName> --allow-unauthenticated
-```
+
